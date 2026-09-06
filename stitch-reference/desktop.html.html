@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<style>
+  @layer base {
+    html, body { margin: 0; padding: 0; }
+    body { overscroll-behavior: none; }
+    main > :first-child { margin-top: 0 !important; }
+    main > :last-child { margin-bottom: 0 !important; }
+  }
+  ::-webkit-scrollbar { display: none; }
+</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "surface-container-high": "#e2e7ff",
+          "accent-gold": "#F59E0B",
+          "error-container": "#ffdad6",
+          "secondary-fixed-dim": "#90cdff",
+          "primary-fixed": "#cbe6ff",
+          "outline-variant": "#bfc7d1",
+          "on-surface-variant": "#3f4850",
+          "secondary-fixed": "#cbe6ff",
+          "on-primary-container": "#fcfcff",
+          "surface-bright": "#faf8ff",
+          "surface-container-highest": "#dae2fd",
+          "surface-warm": "#FAF9F6",
+          "surface-dim": "#d2d9f4",
+          "outline": "#707881",
+          "primary": "#3393d1",
+          "on-primary-fixed": "#001e31",
+          "tertiary-fixed": "#6ffbbe",
+          "surface": "#faf8ff",
+          "on-tertiary-fixed-variant": "#005236",
+          "tertiary-container": "#00855b",
+          "background": "#faf8ff",
+          "on-tertiary-fixed": "#002113",
+          "secondary": "#096494",
+          "on-error": "#ffffff",
+          "on-tertiary-container": "#f5fff6",
+          "on-secondary": "#ffffff",
+          "primary-fixed-dim": "#90cdff",
+          "secondary-container": "#85c8fe",
+          "on-secondary-fixed": "#001e31",
+          "tertiary-fixed-dim": "#4edea3",
+          "on-secondary-fixed-variant": "#004b72",
+          "on-error-container": "#93000a",
+          "surface-container": "#eaedff",
+          "surface-tint": "#3393d1",
+          "on-tertiary": "#ffffff",
+          "tertiary": "#006947",
+          "inverse-surface": "#283044",
+          "error": "#ba1a1a",
+          "on-surface": "#131b2e",
+          "on-secondary-container": "#00537e",
+          "on-primary-fixed-variant": "#004b72",
+          "primary-container": "#007bb7",
+          "surface-container-low": "#f2f3ff",
+          "slate-muted": "#475569",
+          "surface-container-lowest": "#ffffff",
+          "inverse-primary": "#90cdff",
+          "border-subtle": "#E2E8F0",
+          "on-background": "#131b2e",
+          "on-primary": "#ffffff",
+          "surface-variant": "#dae2fd",
+          "inverse-on-surface": "#eef0ff"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "margin-mobile": "1rem",
+          "gutter": "1.5rem",
+          "card-padding": "1.5rem",
+          "section-gap": "4rem",
+          "margin-desktop": "2rem"
+        },
+        "fontFamily": {
+          "headline-sm": ["Plus Jakarta Sans"],
+          "body-md": ["Plus Jakarta Sans"],
+          "body-lg": ["Plus Jakarta Sans"],
+          "display-lg": ["Plus Jakarta Sans"],
+          "display-lg-mobile": ["Plus Jakarta Sans"],
+          "label-md": ["Plus Jakarta Sans"],
+          "headline-md": ["Plus Jakarta Sans"],
+          "label-sm": ["Plus Jakarta Sans"]
+        },
+        "fontSize": {
+          "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+          "body-md": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+          "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+          "display-lg": ["44px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+          "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+          "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+          "headline-md": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+          "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+        }
+      }
+    }
+  }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-background font-body-md text-on-surface">
+<header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+<div class="h-20 max-w-7xl mx-auto px-margin-desktop flex items-center justify-between">
+<div class="flex items-center gap-4">
+<img alt="OSBIC Logo" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvR-vgQxWfa7G8nGgLsQhR9-xojwf1CvXmMA_P05DkFlZ5NPJM01_AhvXm6RDI2rpNjqHAKjjIWPTbqx-b8Wx8iY0o3SEwTIDeozgMb68paiPBwNlcisCGT-U5o9usvxNW_bmFNZFyMAx2byKXCmYwZjH2iQ2Bl2s1Ksfceu-ISRB_E6k-vbWLegwDmFWHdgrpQUCfLWvKfxfJrWNFLm5ABAS747j7qqoxRUFT8QkJbHVRqRd44ZNcfxB1mf27njYxgg"/>
+<span class="font-headline-sm text-headline-sm text-primary">OSBIC</span>
+</div>
+<nav class="hidden lg:flex items-center gap-8" data-active-classes="text-primary font-semibold">
+<a aria-current="page" class="transition-colors text-primary font-semibold" data-path="home" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" data-path="services" href="#">Services</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" data-path="about" href="#">About Us</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" data-path="contact" href="#">Contact</a>
+</nav>
+<div class="flex items-center gap-6">
+<a class="hidden sm:flex items-center gap-2 font-label-md text-label-md text-on-surface-variant" href="tel:+96872229827">
+<span class="material-symbols-outlined text-primary">call</span>+968 7222 9827
+      </a>
+<button class="px-6 py-3 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all shadow-md">Get Free Consultation</button>
+</div>
+</div>
+</header>
+<main class="w-full pt-20 bg-background">
+<div class="flex flex-col w-full relative overflow-hidden">
+<!-- Hero Section -->
+<section class="relative w-full flex flex-col lg:flex-row min-h-[calc(100vh-80px)]">
+<div class="absolute inset-0 z-0 pointer-events-none opacity-20 hidden lg:block">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-tertiary rounded-full blur-[100px]"></div>
+</div>
+<div class="w-full lg:w-1/2 flex items-center py-16 px-6 lg:px-16 xl:px-24 bg-background z-10 relative">
+<div class="w-full max-w-xl mx-auto flex flex-col gap-10">
+<div class="flex flex-col gap-4">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase relative pl-6 before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-4 before:h-[2px] before:bg-primary">Company Registration in Oman</span>
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tight leading-tight font-extrabold">
+              Company Registration in Oman <span class="text-primary italic font-light relative whitespace-nowrap">Made Simple
+                <svg class="absolute w-full h-3 -bottom-1 left-0 text-secondary-fixed opacity-60" preserveaspectratio="none" viewbox="0 0 100 10">
+<path d="M0,5 Q50,10 100,5" fill="none" stroke="currentColor" stroke-width="3"></path>
+</svg>
+</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+              Start your business in Oman with simple and complete company registration support. We handle the bureaucracy so you can focus on growth.
+            </p>
+<div class="flex items-center gap-4 mt-2">
+<div class="flex -space-x-3">
+<img alt="Client" class="w-8 h-8 rounded-full border-2 border-surface object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO66N0OX078e9_TRrTW8TGrUI6OVXhfVYT6DtE5J1Y2eMQDDQ1ogmMfRbC2xLypl8d_H6GFrBBhVtXl_DYj8hzt-3_CcGrVcvpCNdUnxsqZvIUnr8T4SdKwwsQxxxGSmTM3YPIX5AYsFnZ0U_ZWZHLxebzIt3_T-kKsygsNKlSovcD3LbVqNbQ8KKc_elzS9U81uLSFXwwjG9rLIMxbEdl1sc3h8hh_D6X_8L8-TZQ_ZWGG8ykBsOI"/>
+<img alt="Client" class="w-8 h-8 rounded-full border-2 border-surface object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO-vDpc3HQCiuW94GGgXSh436059JeBCa-nno-hICx3h4rZjgVWHha1gCi8g3f2Cxjg-lBRNKURB-nPNjpE8KRgaUyFVIDqHNt_G6l9dKyesOZsPAbHYAB0nkXRMfEPjsa6O2l1AlGXUnjtG-kVSHmbg26up_akLBn4zXv9ccPB4AoRHWW71MXoTYTYuhRwjvfgSDQqt1NDAVmkzjh1Tsyy3UciDUQn6WEXvsWWUykyA7q1klbcqh6"/>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high flex items-center justify-center text-[10px] font-bold text-primary">+5k</div>
+</div>
+<span class="font-label-sm text-on-surface-variant">Trusted by 5,000+ Businesses</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl shadow-xl shadow-primary/10 p-8 relative overflow-hidden group border border-surface-container/50">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -z-10 transition-transform duration-500 group-hover:scale-110"></div>
+<div class="mb-6 bg-primary/5 -mx-8 -mt-8 p-8 border-b border-primary/10">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-2 font-bold">Start Your Business Today</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Request a free, no-obligation consultation.</p>
+</div>
+<form class="flex flex-col gap-5">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="fullName">Full Name</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">person</span>
+<input class="w-full h-12 bg-surface pl-10 pr-4 rounded-lg font-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-2 focus:ring-primary/30 transition-shadow border border-surface-container" id="fullName" placeholder="John Doe" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="email">Work Email</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">mail</span>
+<input class="w-full h-12 bg-surface pl-10 pr-4 rounded-lg font-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-2 focus:ring-primary/30 transition-shadow border border-surface-container" id="email" placeholder="john@company.com" type="email"/>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="phone">Phone Number</label>
+<div class="flex h-12 bg-surface rounded-lg focus-within:ring-2 focus-within:ring-primary/30 transition-shadow overflow-hidden border border-surface-container">
+<button class="flex items-center justify-center px-3 bg-surface-container-low border-r border-outline-variant gap-1" type="button">
+<span class="text-lg">🇴🇲</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">arrow_drop_down</span>
+</button>
+<input class="flex-1 bg-transparent px-3 font-body-md text-on-surface placeholder:text-outline-variant focus:outline-none" id="phone" placeholder="+968 7222 9827" type="tel"/>
+</div>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<button class="w-full h-12 bg-primary text-on-primary font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 hover:bg-surface-tint hover:shadow-lg transition-all active:scale-[0.98] group/btn" type="submit">
+                  Submit Request
+                  <span class="material-symbols-outlined text-[20px] transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</button>
+<div class="flex items-center justify-center gap-1.5 text-tertiary">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span class="font-label-sm text-label-sm">24-Hour Response Guarantee</span>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+<div class="w-full lg:w-1/2 relative h-[400px] lg:h-auto overflow-hidden rounded-b-3xl lg:rounded-none">
+<img alt="Professional business handshake in Oman" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLPXeiKFOZf_AbmtjtPwTkL38L1jBwGBEsVa-AmwEZ7-BZDPPTlsBaQEQevGDpgDnTnjYxtExT6-sYgEcmjXsh4ISBxB-EelkN4ML6LFmPEL-gwHSFx58gFWANrxf_uiWBAnx29S8GgSLkx49zNX2mS3dwy7oGkUvLUhWu3oGPyVncxqHNcaNHJS-1cE07JKplOD1FmFToBD8DYvvI0IGEr74JDEd_v2TNQY3DPM6EeKK_YvLoCMt3rlb34uJkOTGaSg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-black/20 to-transparent lg:bg-gradient-to-r lg:from-background lg:via-black/20 lg:to-transparent"></div>
+</div>
+</section>
+<!-- Why Oman Section -->
+<section class="w-full bg-surface py-20 relative">
+<div class="max-w-7xl mx-auto px-margin-desktop">
+<div class="text-center mb-12">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase mb-2 block">Why Choose Oman</span>
+<h2 class="font-display-lg-mobile md:font-display-lg text-on-surface">Strategic Advantages</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-lg border border-surface-container/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center group">
+<div class="w-16 h-16 mx-auto bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<h3 class="font-headline-sm text-on-surface mb-3">100% Foreign Ownership</h3>
+<p class="font-body-md text-on-surface-variant">Enjoy full control of your business without the need for a local Omani partner under the new FCIL.</p>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-lg border border-surface-container/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center group">
+<div class="w-16 h-16 mx-auto bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<h3 class="font-headline-sm text-on-surface mb-3">0% Personal Income Tax</h3>
+<p class="font-body-md text-on-surface-variant">Benefit from a highly favorable tax environment with no personal income tax and competitive corporate rates.</p>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-lg border border-surface-container/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center group">
+<div class="w-16 h-16 mx-auto bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">public</span>
+</div>
+<h3 class="font-headline-sm text-on-surface mb-3">Strategic Location</h3>
+<p class="font-body-md text-on-surface-variant">Access global markets easily with Oman's prime location connecting Asia, Africa, and Europe.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Metrics Section -->
+<section class="w-full bg-surface-container py-20 relative overflow-hidden">
+<div class="absolute inset-0 opacity-5">
+<div class="absolute top-1/2 left-1/4 w-96 h-96 bg-primary rounded-full blur-[100px] -translate-y-1/2"></div>
+</div>
+<div class="max-w-7xl mx-auto px-margin-desktop flex flex-col gap-12 relative z-10">
+<div class="text-center max-w-2xl mx-auto">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase mb-2 block">Track Record</span>
+<h2 class="font-display-lg-mobile md:font-display-lg text-on-surface">Numbers That Speak Trust</h2>
+<div class="h-1 w-20 bg-primary mx-auto mt-4 rounded-full"></div>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-surface-container/50">
+<div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 text-primary">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">corporate_fare</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold">25k+</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">Registrations</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 delay-75 border border-surface-container/50">
+<div class="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-4 text-secondary">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">groups</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold">18k+</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">Happy Clients</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 delay-150 border border-surface-container/50">
+<div class="w-14 h-14 rounded-full bg-tertiary/10 flex items-center justify-center mb-4 text-tertiary">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold">19+</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">Years Experience</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 delay-200 border border-surface-container/50">
+<div class="w-14 h-14 rounded-full bg-accent-gold/10 flex items-center justify-center mb-4 text-accent-gold">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold">530+</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">Expert Support Team</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials Section -->
+<section class="w-full py-24 bg-surface relative overflow-hidden">
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center opacity-[0.03]" data-alt="Abstract geometric background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAp5RxtUc-FpS0CmQpEsWE1Gy5WKp_y5E7aLoKzaR6BUS0iVVzw4QRrPrbKbHUC0hg8OG9YGNmQATNWozEYtCNXcUeLQpWhrmA2xP20YS58Ur67ji_T-YYqZ9s7Kzb9iFF-lS2S5ZV0yZNoh3-gdLVguTqzjFjUSzDfdzEiwZNgLHw-n9obcw6So2wUcS0eiPiHFFO6hVGE67A_9Z_vdMh8ByWp0XOPNkhyCF7Y1l2EtEUlBt5q87U3')"></div>
+</div>
+<div class="max-w-7xl mx-auto px-margin-desktop relative z-10">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+<div class="max-w-2xl">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase mb-2 block">Testimonials</span>
+<h2 class="font-display-lg-mobile md:font-display-lg text-on-surface mb-4">What Our Clients Say</h2>
+<div class="flex items-center gap-3">
+<div class="flex text-accent-gold">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface bg-surface-container px-3 py-1 rounded-full shadow-sm">
+                EXCELLENT 5.0
+              </span>
+<span class="font-body-md text-body-md text-on-surface-variant hidden sm:inline-block">based on 1,400+ Google Reviews</span>
+</div>
+</div>
+<div class="flex gap-2 hidden md:flex">
+<button class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-primary hover:text-on-primary hover:shadow-lg transition-all">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-primary hover:text-on-primary hover:shadow-lg transition-all">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-lg border border-surface-container/50 hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col h-full relative group">
+<div class="absolute top-8 right-8 text-surface-container-high group-hover:text-primary/20 transition-colors">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+</div>
+<div class="flex text-accent-gold mb-6">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant italic mb-8 flex-grow">
+              "OSBIC made our market entry into Oman incredibly smooth. The team handled all the ministry approvals while we focused on our launch strategy. Outstanding service."
+            </p>
+<div class="flex items-center gap-4 mt-auto">
+<img class="w-12 h-12 rounded-full object-cover shadow-md" data-alt="Headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO66N0OX078e9_TRrTW8TGrUI6OVXhfVYT6DtE5J1Y2eMQDDQ1ogmMfRbC2xLypl8d_H6GFrBBhVtXl_DYj8hzt-3_CcGrVcvpCNdUnxsqZvIUnr8T4SdKwwsQxxxGSmTM3YPIX5AYsFnZ0U_ZWZHLxebzIt3_T-kKsygsNKlSovcD3LbVqNbQ8KKc_elzS9U81uLSFXwwjG9rLIMxbEdl1sc3h8hh_D6X_8L8-TZQ_ZWGG8ykBsOI"/>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Ahmed Al-Farsi</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Tech Startup Founder</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-lg border border-surface-container/50 hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col h-full relative group">
+<div class="absolute top-8 right-8 text-surface-container-high group-hover:text-primary/20 transition-colors">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+</div>
+<div class="flex text-accent-gold mb-6">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant italic mb-8 flex-grow">
+              "Transparent pricing and zero hidden fees. They communicated every step of the CR process clearly. Highly recommend for foreign investors."
+            </p>
+<div class="flex items-center gap-4 mt-auto">
+<div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-headline-sm shadow-md">
+                SJ
+              </div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Sarah Jenkins</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Logistics Director</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-lg border border-surface-container/50 hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col h-full relative group hidden lg:flex">
+<div class="absolute top-8 right-8 text-surface-container-high group-hover:text-primary/20 transition-colors">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+</div>
+<div class="flex text-accent-gold mb-6">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant italic mb-8 flex-grow">
+              "Their dedicated consultant was always available via WhatsApp. Setting up a 100% foreign-owned LLC felt like a breeze with their guidance."
+            </p>
+<div class="flex items-center gap-4 mt-auto">
+<img class="w-12 h-12 rounded-full object-cover shadow-md" data-alt="Headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO-vDpc3HQCiuW94GGgXSh436059JeBCa-nno-hICx3h4rZjgVWHha1gCi8g3f2Cxjg-lBRNKURB-nPNjpE8KRgaUyFVIDqHNt_G6l9dKyesOZsPAbHYAB0nkXRMfEPjsa6O2l1AlGXUnjtG-kVSHmbg26up_akLBn4zXv9ccPB4AoRHWW71MXoTYTYuhRwjvfgSDQqt1NDAVmkzjh1Tsyy3UciDUQn6WEXvsWWUykyA7q1klbcqh6"/>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Marcus Weber</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Retail Group CEO</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-lg border border-surface-container/50 hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col h-full relative group hidden lg:flex">
+<div class="absolute top-8 right-8 text-surface-container-high group-hover:text-primary/20 transition-colors">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+</div>
+<div class="flex text-accent-gold mb-6">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant italic mb-8 flex-grow">
+              "Professional, fast, and highly knowledgeable about Oman's new investment laws. They saved us months of potential administrative delays."
+            </p>
+<div class="flex items-center gap-4 mt-auto">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-headline-sm shadow-md">
+                FM
+              </div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Fatima Mahmood</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Operations Manager</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="w-full bg-primary-container text-on-primary-container py-16 relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/20 z-0"></div>
+<div class="absolute right-0 top-0 w-1/2 h-full opacity-10">
+<div class="w-full h-full bg-cover bg-left" data-alt="Abstract dynamic shapes" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCfyCT1ay6u3su3Re84X0EFxoZKhRZ4E4FylR6dg2RliCg1jkC2ZsQLz3pJZwZNJNyuNic0Cjphi3q7ABE7udLSG9DuFXL9k-PROQ6LNWc98RWoJUPE7QRLs7lKtLhIm3nTatM7WD2UI-5uroUg-FksnYpw-ITNn-OMbRlvEr1MDzJ9lxhMt-O6jOgHDxsXl2M4EwnkJjmDoHfVdLHuHlIgYAO39IvSJ2GA_GVjBE-mNpN63n69SrQ0')"></div>
+</div>
+<div class="max-w-7xl mx-auto px-margin-desktop relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="max-w-2xl text-center md:text-left">
+<h2 class="font-display-lg-mobile md:font-display-lg mb-4 text-on-primary-container font-bold">Ready to Register Your Company in Oman?</h2>
+<p class="font-body-lg text-body-lg opacity-90 text-on-primary-container">
+            Join thousands of successful businesses who trusted OSBIC for a frictionless market entry. Let's discuss your requirements today.
+          </p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto shrink-0">
+<button class="px-8 py-4 bg-surface-container-lowest text-primary font-label-md text-label-md rounded-lg shadow-xl hover:shadow-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+            Register Now
+            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<button class="px-8 py-4 bg-tertiary text-on-tertiary font-label-md text-label-md rounded-lg shadow-xl hover:bg-tertiary-container hover:shadow-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
+            WhatsApp Consultant
+          </button>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="w-full py-24 bg-surface-container-lowest">
+<div class="max-w-4xl mx-auto px-margin-desktop">
+<div class="text-center mb-12">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase mb-2 block">Knowledge Base</span>
+<h2 class="font-display-lg-mobile md:font-display-lg text-on-surface">Frequently Asked Questions</h2>
+</div>
+<div class="flex flex-col gap-4">
+<details class="group bg-surface rounded-xl shadow-sm border border-surface-container/50 [&amp;_summary::-webkit-details-marker]:hidden" open="">
+<summary class="flex items-center justify-between cursor-pointer p-6 font-headline-sm text-headline-sm text-on-surface group-open:text-primary transition-colors">
+              What is a Commercial Registration (CR) in Oman?
+              <span class="material-symbols-outlined transform group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-6 pt-0 font-body-md text-body-md text-on-surface-variant">
+              A Commercial Registration (CR) is the foundational legal document required to conduct any business activity in the Sultanate of Oman. Issued by the Ministry of Commerce, Industry and Investment Promotion (MOCIIP), it serves as your official business identity.
+            </div>
+</details>
+<details class="group bg-surface rounded-xl shadow-sm border border-surface-container/50 [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between cursor-pointer p-6 font-headline-sm text-headline-sm text-on-surface group-open:text-primary transition-colors">
+              Can a foreign investor own 100% of a company in Oman?
+              <span class="material-symbols-outlined transform group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-6 pt-0 font-body-md text-body-md text-on-surface-variant">
+              Yes, under the Foreign Capital Investment Law (FCIL) enacted in 2020, foreign investors can own 100% of a Limited Liability Company (LLC) in Oman for most commercial activities, without the need for a local Omani partner.
+            </div>
+</details>
+<details class="group bg-surface rounded-xl shadow-sm border border-surface-container/50 [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between cursor-pointer p-6 font-headline-sm text-headline-sm text-on-surface group-open:text-primary transition-colors">
+              What are the costs associated with registering a company?
+              <span class="material-symbols-outlined transform group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-6 pt-0 font-body-md text-body-md text-on-surface-variant">
+              Costs vary depending on the legal structure, required share capital, and specific licensing required for your activities. OSBIC provides a transparent, all-inclusive pricing model during your initial consultation so you know exactly what to expect before starting.
+            </div>
+</details>
+<details class="group bg-surface rounded-xl shadow-sm border border-surface-container/50 [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between cursor-pointer p-6 font-headline-sm text-headline-sm text-on-surface group-open:text-primary transition-colors">
+              How long does the company registration process take?
+              <span class="material-symbols-outlined transform group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-6 pt-0 font-body-md text-body-md text-on-surface-variant">
+              With all documents prepared correctly, obtaining the initial CR can take as little as 3-5 working days. However, obtaining specific operational licenses from relevant ministries may take additional time depending on the business activity.
+            </div>
+</details>
+<details class="group bg-surface rounded-xl shadow-sm border border-surface-container/50 [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between cursor-pointer p-6 font-headline-sm text-headline-sm text-on-surface group-open:text-primary transition-colors">
+              Does OSBIC provide support with operational licenses?
+              <span class="material-symbols-outlined transform group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-6 pt-0 font-body-md text-body-md text-on-surface-variant">
+              Absolutely. Beyond the initial CR issuance, we offer end-to-end support for acquiring municipal licenses, specific ministry approvals (e.g., Ministry of Health, ROP), visa processing, and tax registration to ensure you are fully operational and compliant.
+            </div>
+</details>
+</div>
+</div>
+</section>
+</div>
+</main>
+<footer class="w-full bg-surface-container pt-16 pb-8 mt-section-gap">
+<div class="max-w-7xl mx-auto px-margin-desktop">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+<div class="space-y-4 md:col-span-2">
+<div class="flex items-center gap-3 mb-6">
+<img alt="OSBIC" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIGAiXVvY4pd3GrFrfAVy-ahEEaUsYo61qk-z2hj1b8ces8NxgRCpD_Ed5sdgb8zLiCMKLByNsoneL0ihHUVWRTPCEQ_8M5k3CDdVPvpR0yQOqmagMBVKF_up7gek51IQI07ef88WAy2Tg1IbpdpQc-DRECZVypOBnkXNCxchNbBKQwNOAhfpm-On8sYeey1Ta6v5AZz6ab9jo60GZu4Kw5BVFCrpIAeTHcPM-nPFyhxMver-sC-BgZ9yDNTv8UF-nrA"/>
+<span class="font-headline-sm text-headline-sm text-primary">OSBIC</span>
+</div>
+<p class="font-body-md text-on-surface-variant max-w-sm">
+          Driving frictionless business growth and legal excellence in the heart of Oman. We simplify your journey to success.
+        </p>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-label-md text-on-surface uppercase tracking-wider">Quick Links</h4>
+<div class="flex flex-col gap-2 font-body-md text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<a class="hover:text-primary transition-colors" href="#">Services</a>
+<a class="hover:text-primary transition-colors" href="#">About Us</a>
+<a class="hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-label-md text-on-surface uppercase tracking-wider">Head Office</h4>
+<div class="flex items-start gap-3 font-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span>Muscat, Sultanate of Oman</span>
+</div>
+<div class="flex items-center gap-3 font-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-primary">mail</span>
+<a class="hover:text-primary transition-colors" href="mailto:info@osbic.net">info@osbic.net</a>
+</div>
+<div class="flex items-center gap-3 font-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-primary">call</span>
+<a class="hover:text-primary transition-colors" href="tel:+96872229827">+968 7222 9827</a>
+</div>
+<div class="flex gap-4 mt-4">
+<a class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary hover:shadow-md transition-all" href="#">
+<span class="material-symbols-outlined">share</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary hover:shadow-md transition-all" href="#">
+<span class="material-symbols-outlined">public</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary hover:shadow-md transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+</a>
+</div>
+</div>
+</div>
+<div class="pt-8 border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-4 text-on-surface-variant font-label-sm text-label-sm">
+<span>© 2024 OSBIC Business &amp; Legal Consulting. All rights reserved.</span>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-high": "#e2e7ff",
+            "accent-gold": "#F59E0B",
+            "error-container": "#ffdad6",
+            "secondary-fixed-dim": "#90cdff",
+            "primary-fixed": "#cbe6ff",
+            "outline-variant": "#bfc7d1",
+            "on-surface-variant": "#3f4850",
+            "secondary-fixed": "#cbe6ff",
+            "on-primary-container": "#fcfcff",
+            "surface-bright": "#faf8ff",
+            "surface-container-highest": "#dae2fd",
+            "surface-warm": "#FAF9F6",
+            "surface-dim": "#d2d9f4",
+            "outline": "#707881",
+            "primary": "#3393d1",
+            "on-primary-fixed": "#001e31",
+            "tertiary-fixed": "#6ffbbe",
+            "surface": "#faf8ff",
+            "on-tertiary-fixed-variant": "#005236",
+            "tertiary-container": "#00855b",
+            "background": "#faf8ff",
+            "on-tertiary-fixed": "#002113",
+            "secondary": "#096494",
+            "on-error": "#ffffff",
+            "on-tertiary-container": "#f5fff6",
+            "on-secondary": "#ffffff",
+            "primary-fixed-dim": "#90cdff",
+            "secondary-container": "#85c8fe",
+            "on-secondary-fixed": "#001e31",
+            "tertiary-fixed-dim": "#4edea3",
+            "on-secondary-fixed-variant": "#004b72",
+            "on-error-container": "#93000a",
+            "surface-container": "#eaedff",
+            "surface-tint": "#006496",
+            "on-tertiary": "#ffffff",
+            "tertiary": "#006947",
+            "inverse-surface": "#283044",
+            "error": "#ba1a1a",
+            "on-surface": "#131b2e",
+            "on-secondary-container": "#00537e",
+            "on-primary-fixed-variant": "#004b72",
+            "primary-container": "#007bb7",
+            "surface-container-low": "#f2f3ff",
+            "slate-muted": "#475569",
+            "surface-container-lowest": "#ffffff",
+            "inverse-primary": "#90cdff",
+            "border-subtle": "#E2E8F0",
+            "on-background": "#131b2e",
+            "on-primary": "#ffffff",
+            "surface-variant": "#dae2fd",
+            "inverse-on-surface": "#eef0ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-mobile": "1.25rem",
+            "gutter": "1.5rem",
+            "card-padding": "1.5rem",
+            "section-gap": "5rem",
+            "margin-desktop": "2rem"
+          },
+          "fontFamily": {
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "display-lg": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    @layer base { 
+      body { -webkit-tap-highlight-color: transparent; } 
+      .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } 
+      .pt-safe { padding-top: env(safe-area-inset-top, 0px); } 
+    } 
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    body { min-height: max(884px, 100dvh); }
+  </style>
+</head>
+<body class="bg-background font-body-md text-on-background overflow-x-hidden">
+<header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl border-b border-border-subtle pt-safe">
+<div class="h-16 px-margin-mobile flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="OSBIC Logo" class="h-8 w-8 object-cover rounded-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpUEw_8sGy-qxP-FYwPctrCgzGQuy3iwmVdGjqj5Ox8oh0s8rJBQSW-0R3mTEPhxQ2n3tNmFqPd1lBAcfXGnxxbuYWHsvKB54Ed0DYcYpZC0UCXgH-LLAaH6VbGIQTJ8j2afQoTBZGEMRiSdaaLvw9Emuj75zRvIu06MdIpXhFewATescEuEklPx6s3Qsj8bW9rf8vKlclE-44WWvz5wKaiFJQ8QmgYP65n-dLFSQry73nMQftA_nO1JmkZEJTjTPPjA"/>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-md text-label-md text-on-surface">Landing Home</span>
+<img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WbNnIAK4sODD8guspF9s2FKHD-ps02BA0TJ9gUdbTp9rmP22EGg0nDhb2K-lLcy5AeWG1emOjxCvsx5e3_ca8aRhZQKNUkUHUOFoJ6xE0siz2gMPiZbujBK_agDjyXodFp950mS1t_6g-HybCz_M_lTE528ZaYOHGhigg6_zuxbxcsy33rv71Zslmhn_sRr7AYiHvm8HOhlhbp66_k4aPX6QTrad4VnUiLfhkH1woOLYzkzuddO3w6kWYvSNYSSvUBWN81nmKD_A"/>
+</div>
+</div>
+</header>
+<main class="relative w-full pt-16 bg-surface min-h-screen">
+<div class="flex flex-col w-full pb-32">
+<!-- Hero Section -->
+<section class="flex flex-col bg-surface-container-lowest pb-12">
+<div class="relative w-full h-[45vh] max-h-[500px]">
+<img alt="Professional partnership" class="w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhDX_MvVPBQhQEs88wJIMZ32vAhr4MCMRKElrMAlXF92Jb6-GD0NVaN6xSJgwYhlp0SFPmzgsoIUPGiHBksVzuaHvzdryGOPgoU8HvhiRMhpvQ52THFjPHaft5jMaYtR90OiyL4rIpTJ_cR57vUnI-ZaI3E5sQCI7v1R0AKZRG29NqrmUVRe-K-8TTduIEOC3a5KJkQk1XQZga8SILo2PNh0rLXPzsny-Z3cQzYzUdTo-LLY6ibtPvDGC6niO1JI27pA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent"></div>
+</div>
+<div class="px-margin-mobile flex flex-col gap-10 -mt-16 relative z-10">
+<div class="flex flex-col gap-5">
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface shadow-sm border border-border-subtle text-primary w-fit">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span class="font-label-md text-label-md">Trusted Business Advisors</span>
+</div>
+<h1 class="font-display-lg-mobile text-[36px] leading-[1.1] font-bold text-on-surface tracking-tight">
+              Setup Your Business in Oman.
+            </h1>
+<p class="font-body-md text-lg text-on-surface-variant">
+              From company registration to full legal compliance, OSBIC offers frictionless, end-to-end consultancy.
+            </p>
+<ul class="flex flex-col gap-3 mt-1">
+<li class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px] font-bold">check</span>
+</div>
+<span class="font-body-md font-medium text-on-surface">100% Foreign Ownership Setup</span>
+</li>
+<li class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px] font-bold">check</span>
+</div>
+<span class="font-body-md font-medium text-on-surface">Express Commercial Registration</span>
+</li>
+</ul>
+</div>
+<!-- Lead Capture Form Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-xl shadow-primary/5 border border-border-subtle relative z-10">
+<h2 class="font-headline-sm font-bold text-on-surface mb-1">Start Your Journey</h2>
+<p class="font-body-md text-on-surface-variant mb-6 text-sm">Get a free consultation within 24 hours.</p>
+<form class="flex flex-col gap-5">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm font-semibold text-on-surface">Full Name</label>
+<input class="h-14 px-4 rounded-xl bg-surface-container-low border-none text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary transition-all" placeholder="John Doe" type="text"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm font-semibold text-on-surface">Email Address</label>
+<input class="h-14 px-4 rounded-xl bg-surface-container-low border-none text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary transition-all" placeholder="john@company.com" type="email"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm font-semibold text-on-surface">Service Required</label>
+<select class="h-14 px-4 rounded-xl bg-surface-container-low border-none text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary transition-all appearance-none">
+<option>Company Registration</option>
+<option>Legal Consultation</option>
+<option>PRO Services</option>
+<option>Other</option>
+</select>
+</div>
+<button class="h-14 mt-2 rounded-xl bg-primary text-white font-label-md text-lg flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-lg shadow-primary/30 active:scale-[0.98]" type="button">
+<span>Request Consultation</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</form>
+</div>
+</div>
+</section>
+<!-- Metrics Section / Social Proof Stack -->
+<section class="px-margin-mobile py-section-gap bg-surface">
+<div class="text-center mb-8">
+<h2 class="font-headline-md font-bold text-on-surface mb-2">Trusted by Hundreds</h2>
+<div class="flex justify-center gap-1 text-accent-gold mb-2">
+<span class="material-symbols-outlined font-fill text-[24px]">star</span>
+<span class="material-symbols-outlined font-fill text-[24px]">star</span>
+<span class="material-symbols-outlined font-fill text-[24px]">star</span>
+<span class="material-symbols-outlined font-fill text-[24px]">star</span>
+<span class="material-symbols-outlined font-fill text-[24px]">star</span>
+</div>
+<p class="font-body-md text-on-surface-variant">Top-rated business consultants in Oman</p>
+</div>
+<div class="flex flex-col gap-4">
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-border-subtle flex items-center gap-5">
+<div class="w-14 h-14 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[28px]">domain</span>
+</div>
+<div>
+<div class="font-display-lg-mobile text-[32px] font-bold text-on-surface mb-0">500+</div>
+<div class="font-label-md text-on-surface-variant">Companies Setup</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-border-subtle flex items-center gap-5">
+<div class="w-14 h-14 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[28px]">handshake</span>
+</div>
+<div>
+<div class="font-display-lg-mobile text-[32px] font-bold text-on-surface mb-0">98%</div>
+<div class="font-label-md text-on-surface-variant">Client Retention</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-border-subtle flex items-center gap-5">
+<div class="w-14 h-14 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[28px]">schedule</span>
+</div>
+<div>
+<div class="font-display-lg-mobile text-[32px] font-bold text-on-surface mb-0">48h</div>
+<div class="font-label-md text-on-surface-variant">Avg. Setup Time</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Core Services -->
+<section class="px-margin-mobile py-section-gap bg-surface-container-lowest border-t border-border-subtle">
+<div class="text-center mb-10">
+<h2 class="font-headline-md font-bold text-on-surface mb-3">Our Expertise</h2>
+<p class="font-body-md text-on-surface-variant">Comprehensive solutions for your business needs.</p>
+</div>
+<div class="flex flex-col gap-6">
+<div class="p-6 rounded-2xl bg-surface-container-low border border-border-subtle">
+<div class="w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-5">
+<span class="material-symbols-outlined text-[28px]">business_center</span>
+</div>
+<h3 class="font-headline-sm font-bold text-on-surface mb-2">Corporate Structuring</h3>
+<p class="font-body-md text-on-surface-variant text-sm">LLC formation, foreign branches, and holding companies tailored to Oman's regulations.</p>
+</div>
+<div class="p-6 rounded-2xl bg-surface-container-low border border-border-subtle">
+<div class="w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-5">
+<span class="material-symbols-outlined text-[28px]">gavel</span>
+</div>
+<h3 class="font-headline-sm font-bold text-on-surface mb-2">Legal Compliance</h3>
+<p class="font-body-md text-on-surface-variant text-sm">Drafting MoAs, labor law consultation, and ensuring ongoing regulatory compliance.</p>
+</div>
+<div class="rounded-2xl bg-surface-container-low border border-border-subtle overflow-hidden">
+<img alt="Visa Handover" class="w-full h-48 object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsm3L7TDBD7NRv_S0SrrRhu4l__HWbQE_qlfVIh6pFaE_HF2FAfLHB4S48wj14PR1hTN6nOpqyWrWHJnj8onkZUxHGkdb8yh76C-QOT2QY1hdCMnfTnO1F3vAQFIqgZAhetmWS3A4vi2ZYSs06BZ3gW6T22pzW0Epy7O9gGON4QbGf5FWHEn4Vq3ngm0dTB-gOWoGZxiWHMwszIDpST0k6psWpoP_XmWD3vh_rxhCIequ0-PUl7-q2LheIRQzrBKfmFA"/>
+<div class="p-6">
+<div class="w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-5 -mt-10 relative z-10 border-4 border-surface-container-low">
+<span class="material-symbols-outlined text-[28px]">description</span>
+</div>
+<h3 class="font-headline-sm font-bold text-on-surface mb-2">PRO Services</h3>
+<p class="font-body-md text-on-surface-variant text-sm">Visa processing, ministry approvals, and document clearance simplified so you can focus on growth.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="h-28"></div>
+</main>
+<nav class="fixed bottom-0 inset-x-0 z-50 bg-white/80 backdrop-blur-2xl border-t border-border-subtle shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-safe" data-active-classes="text-primary">
+<div class="grid grid-cols-2 gap-4 px-margin-mobile h-24 items-center">
+<a class="flex items-center justify-center gap-2 h-14 rounded-xl bg-surface-container-low border border-border-subtle text-primary font-label-md text-lg transition-all active:scale-95 shadow-sm" href="tel:+96872229827">
+<span class="material-symbols-outlined text-[24px]">call</span>
+<span>Call Now</span>
+</a>
+<a class="flex items-center justify-center gap-2 h-14 rounded-xl bg-[#25D366] text-white font-label-md text-lg transition-all active:scale-95 shadow-lg shadow-[#25D366]/20" href="#">
+<span class="material-symbols-outlined text-[24px]">chat</span>
+<span>WhatsApp</span>
+</a>
+</div>
+</nav>
+</body></html>

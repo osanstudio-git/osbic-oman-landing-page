@@ -1,0 +1,232 @@
+---
+import PhoneInput from './PhoneInput.astro';
+
+interface Props {
+  className?: string;
+  id?: string;
+}
+
+const { className = "", id = "lead-form" } = Astro.props;
+---
+
+<div id={id} class={`bg-white rounded-2xl shadow-xl shadow-[#3393D1]/10 border border-[#E2E8F0] p-6 sm:p-8 relative group transition-all duration-300 scroll-mt-28 sm:scroll-mt-32 lg:scroll-mt-36 ${className}`}>
+  <!-- Decorative Background Glow -->
+  <div class="absolute -top-12 -right-12 w-40 h-40 bg-gradient-to-br from-[#3393D1]/10 to-transparent rounded-full blur-2xl pointer-events-none overflow-hidden"></div>
+
+  <!-- Form Header -->
+  <div class="mb-6 -mx-6 sm:-mx-8 -mt-6 sm:-mt-8 p-6 sm:p-8 bg-gradient-to-r from-[#EAEDFF]/60 to-[#F2F3FF]/30 border-b border-[#E2E8F0] rounded-t-2xl">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#3393D1]/10 text-[#006192] text-xs font-bold mb-2">
+      <span class="w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></span>
+      <span>Connect With US</span>
+    </div>
+    <h3 class="text-xl sm:text-2xl font-bold text-[#131B2E] tracking-tight">
+      Start Your Business in Oman
+    </h3>
+    <p class="text-sm text-[#475569] mt-1">
+      Request a free, no-obligation consultation with an investment specialist.
+    </p>
+  </div>
+
+  <!-- Lead Capture Form -->
+  <form
+    id="osbic-lead-capture-form"
+    class="space-y-4 sm:space-y-5"
+    novalidate
+  >
+    <!-- Status message banner -->
+    <div id="form-feedback" class="hidden p-3 rounded-xl text-sm font-medium"></div>
+
+    <!-- Full Name -->
+    <div class="space-y-1.5">
+      <label for="fullName" class="block text-xs font-bold text-[#131B2E] uppercase tracking-wider">
+        Full Name <span class="text-red-500">*</span>
+      </label>
+      <div class="relative">
+        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[#707881] text-[20px] pointer-events-none">
+          person
+        </span>
+        <input
+          type="text"
+          id="fullName"
+          name="fullName"
+          required
+          placeholder="e.g. John Doe"
+          class="w-full h-12 pl-11 pr-4 rounded-xl bg-[#FAF8FF] border border-[#CBD5E1] text-[#131B2E] placeholder:text-[#707881]/70 text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#3393D1] focus:border-transparent transition-all shadow-sm"
+        />
+      </div>
+    </div>
+
+    <!-- Email Address -->
+    <div class="space-y-1.5">
+      <label for="email" class="block text-xs font-bold text-[#131B2E] uppercase tracking-wider">
+        Email <span class="text-red-500">*</span>
+      </label>
+      <div class="relative">
+        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[#707881] text-[20px] pointer-events-none">
+          mail
+        </span>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="e.g. john@company.com"
+          class="w-full h-12 pl-11 pr-4 rounded-xl bg-[#FAF8FF] border border-[#CBD5E1] text-[#131B2E] placeholder:text-[#707881]/70 text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#3393D1] focus:border-transparent transition-all shadow-sm"
+        />
+      </div>
+    </div>
+
+    <!-- Searchable International Phone Input Component -->
+    <PhoneInput
+      idPrefix="hero"
+      name="phone"
+      required={true}
+      label="Phone / WhatsApp Number"
+    />
+
+    <!-- Submit Button -->
+    <div class="pt-2">
+      <button
+        type="submit"
+        id="submit-btn"
+        class="w-full h-14 rounded-xl bg-gradient-to-r from-[#3393D1] to-[#006192] hover:from-[#1F6E9F] hover:to-[#004B72] text-white font-bold text-base flex items-center justify-center gap-2 shadow-lg shadow-[#3393D1]/25 hover:shadow-xl hover:shadow-[#3393D1]/35 transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed group/btn cursor-pointer"
+      >
+        <span id="btn-text">Request Free Consultation</span>
+        <span id="btn-icon" class="material-symbols-outlined text-[20px] transition-transform group-hover/btn:translate-x-1">
+          arrow_forward
+        </span>
+        <svg
+          id="btn-spinner"
+          class="hidden animate-spin h-5 w-5 text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Trust signals below button -->
+    <div class="flex items-center justify-center gap-2 text-xs font-semibold text-[#006947] pt-1">
+      <span class="material-symbols-outlined text-[18px]">verified_user</span>
+      <span>100% Confidential </span>
+    </div>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('osbic-lead-capture-form') as HTMLFormElement | null;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const btnText = document.getElementById('btn-text');
+  const btnIcon = document.getElementById('btn-icon');
+  const btnSpinner = document.getElementById('btn-spinner');
+  const feedback = document.getElementById('form-feedback');
+
+  const phoneInput = document.getElementById('hero-phone-input') as HTMLInputElement | null;
+  const fullPhoneHidden = document.getElementById('hero-full-phone') as HTMLInputElement | null;
+  const errorBox = document.getElementById('hero-phone-error');
+
+  let isSubmitting = false;
+
+  if (form && submitBtn && btnText && btnIcon && btnSpinner && feedback) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (isSubmitting) return;
+
+      const fullName = (document.getElementById('fullName') as HTMLInputElement)?.value?.trim();
+      const email = (document.getElementById('email') as HTMLInputElement)?.value?.trim();
+      const rawPhone = phoneInput?.value?.trim();
+      const fullPhone = fullPhoneHidden?.value?.trim();
+
+      // Basic client-side validation
+      if (!fullName || !email || !rawPhone) {
+        feedback.className = 'p-3 rounded-xl text-sm font-medium bg-red-50 text-red-700 border border-red-200 block';
+        feedback.textContent = 'Please fill in all required fields.';
+        return;
+      }
+
+      // Email format check
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        feedback.className = 'p-3 rounded-xl text-sm font-medium bg-red-50 text-red-700 border border-red-200 block';
+        feedback.textContent = 'Please provide a valid email address.';
+        return;
+      }
+
+      // Check if phone error is currently visible
+      if (errorBox && !errorBox.classList.contains('hidden')) {
+        feedback.className = 'p-3 rounded-xl text-sm font-medium bg-red-50 text-red-700 border border-red-200 block';
+        feedback.textContent = 'Please correct your phone number before submitting.';
+        phoneInput?.focus();
+        return;
+      }
+
+      const digitsOnly = rawPhone.replace(/[^\d]/g, '');
+      if (digitsOnly.length < 6) {
+        feedback.className = 'p-3 rounded-xl text-sm font-medium bg-red-50 text-red-700 border border-red-200 block';
+        feedback.textContent = 'Please enter a valid phone number.';
+        phoneInput?.focus();
+        return;
+      }
+
+      // Lock submission to prevent double clicks
+      isSubmitting = true;
+      submitBtn.disabled = true;
+      btnText.textContent = 'Submitting...';
+      btnIcon.classList.add('hidden');
+      btnSpinner.classList.remove('hidden');
+      feedback.classList.add('hidden');
+
+      const formattedPhoneToSubmit = fullPhone || rawPhone;
+
+      const leadPayload = {
+        fullName,
+        email,
+        phone: formattedPhoneToSubmit,
+        serviceType: '',
+        source: 'OSBIC Hero Lead Form',
+        timestamp: new Date().toISOString(),
+        referrer: document.referrer || 'Direct'
+      };
+
+      const webhookUrl = import.meta.env.PUBLIC_WEBHOOK_URL || "https://script.google.com/macros/s/AKfycbwIz-3kYA_IC3BPoDzNQsEUUvGtArMxBrPVOMO4CaXGjKlilITjiuQ5I1-5dBcrYXJwiQ/exec";
+
+      try {
+        if (webhookUrl && webhookUrl.startsWith('http')) {
+          fetch(webhookUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8'
+            },
+            body: JSON.stringify(leadPayload),
+            keepalive: true
+          }).catch((err) => console.warn('Fetch log:', err));
+        }
+      } catch (err) {
+        console.warn('Submission attempt log:', err);
+      }
+
+      // Push event to Google Tag Manager dataLayer
+      if (typeof window !== 'undefined' && (window as any).dataLayer) {
+        (window as any).dataLayer.push({
+          event: 'generate_lead',
+          leadData: {
+            hasEmail: Boolean(email),
+            hasPhone: Boolean(rawPhone),
+            fullPhone: formattedPhoneToSubmit
+          }
+        });
+      }
+
+      // Store submission in sessionStorage for thank-you personalization
+      sessionStorage.setItem('osbic_lead_name', fullName);
+
+      setTimeout(() => {
+        window.location.href = '/thank-you';
+      }, 700);
+    });
+  }
+</script>

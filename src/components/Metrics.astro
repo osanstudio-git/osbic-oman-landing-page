@@ -1,0 +1,59 @@
+---
+const stats = [
+  {
+    value: "25,000+",
+    label: "Company Registrations",
+    subtext: "Successfully formed in Oman",
+    icon: "corporate_fare"
+  },
+  {
+    value: "18,000+",
+    label: "Global Investors",
+    subtext: "Across 45+ countries",
+    icon: "public"
+  },
+  {
+    value: "19+ Years",
+    label: "Industry Experience",
+    subtext: "Omani corporate law",
+    icon: "workspace_premium"
+  },
+  {
+    value: "100%",
+    label: "Foreign Ownership",
+    subtext: "FCIL compliant setup",
+    icon: "verified"
+  }
+];
+---
+
+<section id="metrics" class="w-full bg-[#FAF8FF] py-6 sm:py-8 border-y border-[#E2E8F0]/80 relative z-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white/90 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-[#E2E8F0] shadow-sm hover:shadow-md transition-shadow">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:divide-x lg:divide-[#E2E8F0]">
+        {stats.map((item, index) => (
+          <div class={`flex items-center gap-3 sm:gap-4 p-2 sm:p-3 group ${index !== 0 ? 'lg:pl-6' : ''}`}>
+            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#EAEDFF] text-[#006192] flex items-center justify-center shrink-0 group-hover:bg-[#3393D1] group-hover:text-white transition-all duration-300 shadow-sm">
+              <span class="material-symbols-outlined text-[22px] sm:text-[24px]">
+                {item.icon}
+              </span>
+            </div>
+            
+            <div class="min-w-0">
+              <div class="text-xl sm:text-2xl lg:text-[28px] font-extrabold text-[#131B2E] tracking-tight leading-none group-hover:text-[#006192] transition-colors">
+                {item.value}
+              </div>
+              <div class="text-xs sm:text-sm font-bold text-[#006192] mt-1 truncate">
+                {item.label}
+              </div>
+              <div class="text-[11px] text-[#475569] font-medium hidden sm:block truncate mt-0.5">
+                {item.subtext}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+

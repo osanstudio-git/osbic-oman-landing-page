@@ -1,0 +1,450 @@
+---
+import { COUNTRIES } from '../data/countries';
+
+interface Props {
+  idPrefix?: string;
+  name?: string;
+  required?: boolean;
+  label?: string;
+  className?: string;
+}
+
+const {
+  idPrefix = "hero",
+  name = "phone",
+  required = true,
+  label = "Phone / WhatsApp Number",
+  className = ""
+} = Astro.props;
+
+const pinnedCountries = COUNTRIES.filter(c => c.priority);
+const otherCountries = COUNTRIES.filter(c => !c.priority);
+---
+
+<div class={`space-y-1.5 relative ${className}`} id={`${idPrefix}-phone-root`} data-phone-root data-prefix={idPrefix}>
+  <label for={`${idPrefix}-phone-input`} class="block text-xs font-bold text-[#131B2E] uppercase tracking-wider">
+    {label} {required && <span class="text-red-500">*</span>}
+  </label>
+
+  <!-- Input Wrapper with Split Button Style -->
+  <div
+    id={`${idPrefix}-input-box`}
+    data-input-box
+    class="relative flex rounded-xl border border-[#CBD5E1] bg-[#FAF8FF] focus-within:ring-2 focus-within:ring-[#3393D1] focus-within:border-transparent focus-within:bg-white transition-all shadow-sm"
+  >
+    <!-- Left Trigger Button: [ Flag + Code ▾ ] -->
+    <button
+      type="button"
+      id={`${idPrefix}-country-trigger`}
+      data-country-trigger
+      aria-haspopup="listbox"
+      aria-expanded="false"
+      aria-label="Select Country Dial Code"
+      class="flex items-center gap-1.5 px-3 py-2.5 bg-[#F2F3FF] hover:bg-[#E6ECFF] border-r border-[#CBD5E1] rounded-l-xl text-xs sm:text-sm font-bold text-[#131B2E] transition-colors cursor-pointer shrink-0 select-none group"
+    >
+      <span id={`${idPrefix}-current-flag`} data-current-flag class="text-base leading-none">🇴🇲</span>
+      <span id={`${idPrefix}-current-dial`} data-current-dial class="text-[#006192] font-extrabold">+968</span>
+      <span class="material-symbols-outlined text-[16px] text-[#707881] group-hover:text-[#006192] transition-transform duration-200" id={`${idPrefix}-trigger-arrow`} data-trigger-arrow>
+        arrow_drop_down
+      </span>
+    </button>
+
+    <!-- Phone Digits Input Field -->
+    <input
+      type="tel"
+      id={`${idPrefix}-phone-input`}
+      data-phone-input
+      name={`${name}Local`}
+      required={required}
+      placeholder="7259 6531"
+      autocomplete="tel-national"
+      class="flex-1 h-12 px-3 bg-transparent text-[#131B2E] placeholder:text-[#707881]/70 text-sm font-medium focus:outline-none rounded-r-xl"
+    />
+
+    <!-- Hidden Input for full international phone -->
+    <input
+      type="hidden"
+      id={`${idPrefix}-full-phone`}
+      data-full-phone
+      name={name}
+      value="+968"
+    />
+  </div>
+
+  <!-- Subtle Validation Error Message -->
+  <div id={`${idPrefix}-phone-error`} data-phone-error class="hidden text-xs text-red-600 font-semibold pt-0.5 pl-1 flex items-center gap-1">
+    <span class="material-symbols-outlined text-[14px]">error</span>
+    <span id={`${idPrefix}-phone-error-text`} data-phone-error-text>Please enter a valid phone number.</span>
+  </div>
+
+  <!-- Lightweight Searchable Country Selector Popover -->
+  <div
+    id={`${idPrefix}-country-popover`}
+    data-country-popover
+    class="hidden absolute left-0 right-0 top-[calc(100%+6px)] w-full max-h-[300px] bg-white rounded-2xl shadow-2xl shadow-[#131B2E]/20 border border-[#CBD5E1] z-[999] flex-col overflow-hidden backdrop-blur-md"
+    style="filter: drop-shadow(0 12px 30px rgba(0, 45, 74, 0.16));"
+  >
+    <!-- Sticky Search Header -->
+    <div class="p-2.5 border-b border-[#E2E8F0] bg-[#FAF8FF] sticky top-0 z-10">
+      <div class="relative flex items-center">
+        <span class="material-symbols-outlined absolute left-2.5 text-[#707881] text-[18px] pointer-events-none">
+          search
+        </span>
+        <input
+          type="text"
+          id={`${idPrefix}-country-search`}
+          data-country-search
+          placeholder="Search country or code (e.g. India, +968)..."
+          class="w-full h-9 pl-8 pr-7 rounded-xl bg-white border border-[#CBD5E1] text-xs font-medium text-[#131B2E] placeholder:text-[#707881]/70 focus:outline-none focus:ring-2 focus:ring-[#3393D1] focus:border-transparent transition-all"
+        />
+        <button
+          type="button"
+          id={`${idPrefix}-search-clear`}
+          data-search-clear
+          class="hidden absolute right-2 text-[#707881] hover:text-[#131B2E] text-xs font-bold w-4 h-4 rounded-full bg-[#E2E8F0] items-center justify-center cursor-pointer"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+
+    <!-- Scrollable Country List -->
+    <div id={`${idPrefix}-country-list`} data-country-list class="overflow-y-auto flex-1 divide-y divide-[#F1F5F9] max-h-[270px]">
+      
+      <!-- Pinned Regional Tier -->
+      <div class="bg-[#FAF9F6]">
+        <div class="px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-[#006192] bg-[#EAEDFF]/70">
+          Popular / Regional
+        </div>
+        {pinnedCountries.map((c) => (
+          <button
+            type="button"
+            class="country-option w-full px-3 py-2 flex items-center justify-between text-left hover:bg-[#F2F7FF] active:bg-[#EAEDFF] transition-colors cursor-pointer group"
+            data-code={c.code}
+            data-dial={c.dial}
+            data-flag={c.flag}
+            data-name={c.name}
+            data-placeholder={c.placeholder}
+          >
+            <div class="flex items-center gap-2.5 truncate">
+              <span class="text-lg shrink-0 leading-none">{c.flag}</span>
+              <span class="text-xs font-semibold text-[#131B2E] group-hover:text-[#006192] truncate">{c.name}</span>
+            </div>
+            <span class="text-xs font-extrabold text-[#006192] bg-[#EAEDFF] px-2 py-0.5 rounded-md shrink-0">
+              {c.dial}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      <!-- All Countries Tier -->
+      <div>
+        <div class="px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-[#475569] bg-[#F1F5F9]/80">
+          All Countries
+        </div>
+        {otherCountries.map((c) => (
+          <button
+            type="button"
+            class="country-option w-full px-3 py-2 flex items-center justify-between text-left hover:bg-[#F2F7FF] active:bg-[#EAEDFF] transition-colors cursor-pointer group"
+            data-code={c.code}
+            data-dial={c.dial}
+            data-flag={c.flag}
+            data-name={c.name}
+            data-placeholder={c.placeholder}
+          >
+            <div class="flex items-center gap-2.5 truncate">
+              <span class="text-lg shrink-0 leading-none">{c.flag}</span>
+              <span class="text-xs font-semibold text-[#131B2E] group-hover:text-[#006192] truncate">{c.name}</span>
+            </div>
+            <span class="text-xs font-extrabold text-[#475569] bg-[#F1F5F9] px-2 py-0.5 rounded-md shrink-0">
+              {c.dial}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      <!-- Empty state when search has no matches -->
+      <div id={`${idPrefix}-no-results`} data-no-results class="hidden p-6 text-center text-xs text-[#707881]">
+        <span class="material-symbols-outlined text-2xl block mb-1 text-[#CBD5E1]">search_off</span>
+        No matching countries found
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  import { AsYouType, parsePhoneNumberFromString, isValidPhoneNumber } from 'libphonenumber-js';
+  import { COUNTRIES } from '../data/countries';
+
+  function initPhoneInputComponent(root: HTMLElement) {
+    const inputBox = root.querySelector('[data-input-box]') as HTMLElement | null;
+    const trigger = root.querySelector('[data-country-trigger]') as HTMLButtonElement | null;
+    const triggerArrow = root.querySelector('[data-trigger-arrow]') as HTMLElement | null;
+    const currentFlag = root.querySelector('[data-current-flag]') as HTMLElement | null;
+    const currentDial = root.querySelector('[data-current-dial]') as HTMLElement | null;
+    const phoneInput = root.querySelector('[data-phone-input]') as HTMLInputElement | null;
+    const fullPhoneHidden = root.querySelector('[data-full-phone]') as HTMLInputElement | null;
+    const errorBox = root.querySelector('[data-phone-error]') as HTMLElement | null;
+    const errorText = root.querySelector('[data-phone-error-text]') as HTMLElement | null;
+    
+    const popover = root.querySelector('[data-country-popover]') as HTMLElement | null;
+    const searchInput = root.querySelector('[data-country-search]') as HTMLInputElement | null;
+    const searchClear = root.querySelector('[data-search-clear]') as HTMLButtonElement | null;
+    const countryList = root.querySelector('[data-country-list]') as HTMLElement | null;
+    const noResults = root.querySelector('[data-no-results]') as HTMLElement | null;
+
+    let activeCountry = COUNTRIES.find(c => c.code === 'OM') || COUNTRIES[0];
+    let isOpen = false;
+
+    function updateActiveCountry(country: typeof COUNTRIES[0], updatePhoneValue = false) {
+      activeCountry = country;
+      if (currentFlag) currentFlag.textContent = country.flag;
+      if (currentDial) currentDial.textContent = country.dial;
+      if (phoneInput) {
+        phoneInput.placeholder = country.placeholder || '7259 6531';
+        if (updatePhoneValue && phoneInput.value) {
+          formatCurrentInput();
+        }
+      }
+      updateFullPhoneValue();
+      clearError();
+    }
+
+    function updateFullPhoneValue() {
+      if (!fullPhoneHidden || !phoneInput) return;
+      const rawVal = phoneInput.value.trim().replace(/[^\d]/g, '');
+      fullPhoneHidden.value = rawVal ? `${activeCountry.dial} ${rawVal}` : '';
+    }
+
+    function formatCurrentInput() {
+      if (!phoneInput) return;
+      const rawDigits = phoneInput.value.replace(/[^\d]/g, '');
+      if (!rawDigits) {
+        phoneInput.value = '';
+        updateFullPhoneValue();
+        return;
+      }
+
+      try {
+        const formatter = new AsYouType(activeCountry.code as any);
+        const formatted = formatter.input(rawDigits);
+        phoneInput.value = formatted;
+      } catch {
+        phoneInput.value = rawDigits;
+      }
+      updateFullPhoneValue();
+    }
+
+    function togglePopover(show?: boolean) {
+      isOpen = typeof show === 'boolean' ? show : !isOpen;
+      if (popover) {
+        if (isOpen) {
+          popover.classList.remove('hidden');
+          popover.classList.add('flex');
+          trigger?.setAttribute('aria-expanded', 'true');
+          if (triggerArrow) triggerArrow.style.transform = 'rotate(180deg)';
+          if (searchInput) {
+            searchInput.value = '';
+            filterCountries('');
+            setTimeout(() => searchInput.focus(), 50);
+          }
+        } else {
+          popover.classList.add('hidden');
+          popover.classList.remove('flex');
+          trigger?.setAttribute('aria-expanded', 'false');
+          if (triggerArrow) triggerArrow.style.transform = 'rotate(0deg)';
+        }
+      }
+    }
+
+    function filterCountries(query: string) {
+      const q = query.trim().toLowerCase();
+      if (searchClear) {
+        if (q) {
+          searchClear.classList.remove('hidden');
+          searchClear.classList.add('flex');
+        } else {
+          searchClear.classList.add('hidden');
+          searchClear.classList.remove('flex');
+        }
+      }
+
+      const options = countryList?.querySelectorAll('.country-option');
+      let visibleCount = 0;
+
+      options?.forEach((opt) => {
+        const name = (opt.getAttribute('data-name') || '').toLowerCase();
+        const dial = (opt.getAttribute('data-dial') || '').toLowerCase();
+        const code = (opt.getAttribute('data-code') || '').toLowerCase();
+
+        const matches = name.includes(q) || dial.includes(q) || code.includes(q) || dial.replace('+', '').includes(q);
+        if (matches) {
+          (opt as HTMLElement).style.display = 'flex';
+          visibleCount++;
+        } else {
+          (opt as HTMLElement).style.display = 'none';
+        }
+      });
+
+      if (noResults) {
+        if (visibleCount === 0) {
+          noResults.classList.remove('hidden');
+        } else {
+          noResults.classList.add('hidden');
+        }
+      }
+    }
+
+    function validatePhoneNumber() {
+      if (!phoneInput) return true;
+      const rawVal = phoneInput.value.trim();
+      if (!rawVal) {
+        clearError();
+        return false;
+      }
+
+      const fullNum = `${activeCountry.dial}${rawVal.replace(/[^\d]/g, '')}`;
+      let valid = false;
+
+      try {
+        valid = isValidPhoneNumber(fullNum, activeCountry.code as any);
+      } catch {
+        valid = rawVal.replace(/[^\d]/g, '').length >= 6;
+      }
+
+      if (!valid) {
+        showError(`Please enter a valid phone number for ${activeCountry.name}.`);
+        return false;
+      } else {
+        clearError();
+        return true;
+      }
+    }
+
+    function showError(msg: string) {
+      if (errorBox && errorText) {
+        errorText.textContent = msg;
+        errorBox.classList.remove('hidden');
+      }
+      if (inputBox) {
+        inputBox.classList.add('border-red-400', 'ring-1', 'ring-red-300');
+      }
+    }
+
+    function clearError() {
+      if (errorBox) {
+        errorBox.classList.add('hidden');
+      }
+      if (inputBox) {
+        inputBox.classList.remove('border-red-400', 'ring-1', 'ring-red-300');
+      }
+    }
+
+    // Trigger click listener
+    if (trigger) {
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePopover();
+      });
+    }
+
+    // Search listeners
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        filterCountries((e.target as HTMLInputElement).value);
+      });
+    }
+
+    if (searchClear) {
+      searchClear.addEventListener('click', () => {
+        if (searchInput) {
+          searchInput.value = '';
+          filterCountries('');
+          searchInput.focus();
+        }
+      });
+    }
+
+    // Country option click listener
+    if (countryList) {
+      countryList.addEventListener('click', (e) => {
+        const btn = (e.target as HTMLElement).closest('.country-option');
+        if (!btn) return;
+
+        const code = btn.getAttribute('data-code');
+        const country = COUNTRIES.find(c => c.code === code);
+        if (country) {
+          updateActiveCountry(country, true);
+          togglePopover(false);
+          phoneInput?.focus();
+        }
+      });
+    }
+
+    // Outside click & Escape handlers
+    document.addEventListener('click', (e) => {
+      if (isOpen && !root.contains(e.target as Node)) {
+        togglePopover(false);
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        togglePopover(false);
+        trigger?.focus();
+      }
+    });
+
+    // Smart auto-detection and formatting on typing/pasting
+    if (phoneInput) {
+      phoneInput.addEventListener('input', () => {
+        let val = phoneInput.value.trim();
+
+        if (val.startsWith('+') || val.startsWith('00')) {
+          let normalized = val.startsWith('00') ? '+' + val.slice(2) : val;
+
+          try {
+            const parsed = parsePhoneNumberFromString(normalized);
+            if (parsed && parsed.country) {
+              const detectedCountry = COUNTRIES.find(c => c.code === parsed.country);
+              if (detectedCountry) {
+                updateActiveCountry(detectedCountry);
+                phoneInput.value = parsed.nationalNumber;
+                formatCurrentInput();
+                return;
+              }
+            }
+          } catch {}
+
+          // Fallback prefix scan
+          for (const c of COUNTRIES) {
+            if (normalized.startsWith(c.dial)) {
+              updateActiveCountry(c);
+              phoneInput.value = normalized.slice(c.dial.length).trim();
+              formatCurrentInput();
+              return;
+            }
+          }
+        }
+
+        formatCurrentInput();
+      });
+
+      phoneInput.addEventListener('blur', () => {
+        if (phoneInput.value.trim()) {
+          validatePhoneNumber();
+        } else {
+          clearError();
+        }
+      });
+    }
+
+    updateActiveCountry(activeCountry);
+  }
+
+  // Initialize all phone input instances on page load
+  document.querySelectorAll<HTMLElement>('[data-phone-root]').forEach((el) => {
+    initPhoneInputComponent(el);
+  });
+</script>

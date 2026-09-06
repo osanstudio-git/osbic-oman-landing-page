@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import WhyOman from '../components/WhyOman.astro';
+import Services from '../components/Services.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import FAQ from '../components/FAQ.astro';
+import Footer from '../components/Footer.astro';
+import MobileStickyBar from '../components/MobileStickyBar.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+import CallModal from '../components/CallModal.astro';
+---
+
+<Layout
+  title="Company Registration in Oman | 100% Foreign Ownership Setup | OSBIC"
+  description="Start your company in Oman with 100% foreign ownership. Fast 3-5 day Commercial Registration (CR), 0% personal tax, full PRO services and expert legal support in Muscat."
+>
+  <div class="relative min-h-screen flex flex-col bg-[#FAF8FF]">
+    <Navbar />
+    
+    <main class="flex-grow">
+      <Hero />
+      <WhyOman /> 
+      <Services /> 
+      <Testimonials /> 
+      <CtaBanner /> 
+      <FAQ /> 
+    </main> 
+
+    <Footer />
+    <FloatingWhatsApp />
+    <MobileStickyBar />
+    <CallModal />
+  </div>
+</Layout>
