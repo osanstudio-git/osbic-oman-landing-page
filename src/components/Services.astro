@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import proImg from '../assets/images/pro.jpg';
+
 const services = [
   {
     step: "01",
@@ -64,12 +67,16 @@ const services = [
       
       <!-- Left Column (5 cols): Real Omani Advisor Visual Card -->
       <div class="lg:col-span-5 relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-md shadow-[#3393D1]/5 border border-[#E2E8F0] min-h-[340px] sm:min-h-[420px] lg:min-h-full flex flex-col justify-end p-4 sm:p-7 group">
-        <!-- Background Image (pro_.jpg) -->
-        <img
-          src="/office-img/pro_.jpg"
+        <!-- Background Image (pro.jpg) -->
+        <Image
+          src={proImg}
           alt="OSBIC Senior Omani PRO & Legal Consultant greeting investor"
           class="absolute inset-0 w-full h-full object-cover object-[center_15%] group-hover:scale-105 transition-transform duration-700"
           loading="lazy"
+          widths={[400, 700, 1000]}
+          sizes="(max-width: 1024px) 100vw, 40vw"
+          format="webp"
+          quality={85}
         />
         
         <!-- Smooth Gradient Overlay -->

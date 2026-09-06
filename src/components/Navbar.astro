@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logoImg from '../assets/images/logo.png';
 ---
 
 <header class="fixed top-0 inset-x-0 w-full z-50 bg-[#FAF8FF]/90 backdrop-blur-xl border-b border-[#E2E8F0] transition-all duration-200">
@@ -34,11 +36,14 @@
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2 sm:gap-3 group shrink-0">
         <div class="w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition-all flex items-center justify-center shrink-0 border border-[#3393D1]/20">
-          <img
-            src="/Artboard 1@3x-1.png"
+          <Image
+            src={logoImg}
             alt="OSBIC Logo"
             class="w-full h-full object-cover scale-[1.04]"
             loading="eager"
+            width={88}
+            height={88}
+            format="webp"
           />
         </div>
         <div class="flex flex-col">
