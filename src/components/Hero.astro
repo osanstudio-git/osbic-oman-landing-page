@@ -150,25 +150,25 @@ const stats = [
     </div>
 
     <!-- Integrated Metrics & Stats Strip in Hero -->
-    <div class="mt-12 sm:mt-16 pt-8 border-t border-[#E2E8F0]">
-      <div class="bg-white/90 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-[#E2E8F0] shadow-sm hover:shadow-md transition-shadow">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:divide-x lg:divide-[#E2E8F0]">
+    <div class="mt-10 sm:mt-16 pt-6 sm:pt-8 border-t border-[#E2E8F0]">
+      <div class="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 border border-[#E2E8F0] shadow-sm hover:shadow-md transition-shadow">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:divide-x lg:divide-[#E2E8F0]">
           {stats.map((item, index) => (
-            <div class={`flex items-center gap-3 sm:gap-4 p-2 sm:p-3 group ${index !== 0 ? 'lg:pl-6' : ''}`}>
-              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#EAEDFF] text-[#006192] flex items-center justify-center shrink-0 group-hover:bg-[#3393D1] group-hover:text-white transition-all duration-300 shadow-sm">
-                <span class="material-symbols-outlined text-[22px] sm:text-[24px]">
+            <div class={`flex items-center gap-2.5 sm:gap-4 p-1.5 sm:p-3 group ${index !== 0 ? 'lg:pl-6' : ''}`}>
+              <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-[#EAEDFF] text-[#006192] flex items-center justify-center shrink-0 group-hover:bg-[#3393D1] group-hover:text-white transition-all duration-300 shadow-sm">
+                <span class="material-symbols-outlined text-[18px] sm:text-[24px]">
                   {item.icon}
                 </span>
               </div>
               
-              <div class="min-w-0">
-                <div class="text-xl sm:text-2xl lg:text-[28px] font-extrabold text-[#131B2E] tracking-tight leading-none group-hover:text-[#006192] transition-colors">
+              <div class="min-w-0 flex-1">
+                <div class="text-base sm:text-2xl lg:text-[28px] font-extrabold text-[#131B2E] tracking-tight leading-tight group-hover:text-[#006192] transition-colors">
                   {item.value}
                 </div>
-                <div class="text-xs sm:text-sm font-bold text-[#006192] mt-1 truncate">
+                <div class="text-[11px] sm:text-sm font-bold text-[#006192] leading-snug mt-0.5">
                   {item.label}
                 </div>
-                <div class="text-[11px] text-[#475569] font-medium hidden sm:block truncate mt-0.5">
+                <div class="text-[10px] sm:text-[11px] text-[#475569] font-medium hidden md:block mt-0.5">
                   {item.subtext}
                 </div>
               </div>
