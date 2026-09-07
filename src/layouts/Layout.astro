@@ -121,18 +121,25 @@ const schemaData = {
       />
     </noscript>
 
-    <!-- Google Tag Manager / DataLayer Initialization -->
+    <!-- Google Tag Manager -->
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-OSBICDEMO');
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-K6G3VQTW');
     </script>
+    <!-- End Google Tag Manager -->
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
   </head>
   <body class="bg-[#FAF8FF] font-sans text-[#131B2E] antialiased selection:bg-[#3393D1]/20 selection:text-[#006192]">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6G3VQTW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <slot />
   </body>
 </html>
