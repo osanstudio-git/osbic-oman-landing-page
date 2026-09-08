@@ -1,36 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Image } from 'astro:assets';
-import logoImg from '../assets/images/logo.png';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout
   title="Thank You! Your Request Has Been Received | OSBIC"
   description="Thank you for requesting a business consultation with OSBIC. Our senior advisor in Muscat will connect with you shortly."
 >
-  <main class="min-h-screen bg-[#FAF8FF] flex flex-col justify-between pt-12 pb-20 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-2xl mx-auto w-full pt-8 sm:pt-16">
-      
-      <!-- Brand Header -->
-      <div class="flex items-center justify-center gap-3 mb-8">
-        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-md flex items-center justify-center shrink-0 border border-[#3393D1]/20">
-          <Image
-            src={logoImg}
-            alt="OSBIC Logo"
-            class="w-full h-full object-cover scale-[1.04]"
-            loading="eager"
-            width={88}
-            height={88}
-            format="webp"
-          />
-        </div>
-        <span class="font-bold text-2xl text-[#006192] tracking-tight">OSBIC</span>
-      </div>
+  <Navbar />
+
+  <main class="bg-[#FAF8FF] flex flex-col justify-center items-center pt-36 pb-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto w-full">
 
       <!-- Success Card -->
       <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-xl shadow-[#3393D1]/10 border border-[#E2E8F0] text-center relative overflow-hidden">
         
-        <!-- Ambient top badge -->
+        <!-- Check Icon Badge -->
         <div class="w-20 h-20 bg-[#10B981]/10 text-[#10B981] rounded-full flex items-center justify-center mx-auto mb-6 ring-8 ring-[#10B981]/5">
           <span class="material-symbols-outlined text-[42px] font-bold">
             check_circle
@@ -48,8 +34,6 @@ import logoImg from '../assets/images/logo.png';
         <p class="text-sm sm:text-base text-[#475569] leading-relaxed max-w-lg mx-auto mb-8">
           We have received your business inquiry. A Senior Corporate Advisor has been assigned to your profile and will contact you.
         </p>
-
-      
 
         <!-- Fast Track Contact Buttons -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5">
@@ -75,13 +59,10 @@ import logoImg from '../assets/images/logo.png';
         </div>
 
       </div>
-
-    </div>
-
-    <div class="text-center text-xs text-[#475569] mt-8">
-      © {new Date().getFullYear()} OSBIC Business & Legal Consulting LLC • Muscat, Sultanate of Oman
     </div>
   </main>
+
+  <Footer />
 </Layout>
 
 <script>
