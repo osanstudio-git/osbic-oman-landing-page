@@ -161,9 +161,10 @@ const { className = "", id = "lead-form" } = Astro.props;
 
   // ─── Submit to OSBIC CRM via Supabase Edge Function (new) ─────────────────
   async function submitToOsbicCRM(formValues: { fullName: string; phone: string; email: string }) {
-    const supabaseUrl = (import.meta as any).env?.PUBLIC_SUPABASE_URL
+    const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL
       || "https://wyzwpmwspvksgkmesaah.supabase.co/functions/v1/website-lead";
-    const supabaseKey = (import.meta as any).env?.PUBLIC_SUPABASE_ANON_KEY || "";
+    const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+      || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5endwbXdzcHZrc2drbWVzYWFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NjQ0MjYsImV4cCI6MjA5MDU0MDQyNn0.QIKNZLRM7MwGUk8VWaTAem7VCU1cS9m6GGTfmBzqB8Y";
 
     const tracking = getTrackingParams();
 
