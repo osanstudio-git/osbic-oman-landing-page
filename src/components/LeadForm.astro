@@ -130,13 +130,66 @@ const { className = "", id = "lead-form" } = Astro.props;
 
   let isSubmitting = false;
 
+  // ─── Helper: Capture UTM params & GCLID from URL ───────────────────────────
+  function getTrackingParams() {
+    const p = new URLSearchParams(window.location.search);
+    return {
+      utm_source:      p.get('utm_source'),
+      utm_medium:      p.get('utm_medium'),
+      utm_campaign:    p.get('utm_campaign'),
+      utm_term:        p.get('utm_term'),
+      utm_content:     p.get('utm_content'),
+      gclid:           p.get('gclid'),
+      fbclid:          p.get('fbclid'),
+      landing_page_url: window.location.href,
+    };
+  }
+
+  // ─── Submit to Google Apps Script (existing) ───────────────────────────────
+  async function submitToGoogleSheet(payload: Record<string, any>) {
+    const webhookUrl = (import.meta as any).env?.PUBLIC_WEBHOOK_URL
+      || "https://script.google.com/macros/s/AKfycbwIz-3kYA_IC3BPoDzNQsEUUvGtArMxBrPVOMO4CaXGjKlilITjiuQ5I1-5dBcrYXJwiQ/exec";
+    if (!webhookUrl?.startsWith('http')) return;
+    await fetch(webhookUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    });
+  }
+
+  // ─── Submit to OSBIC CRM via Supabase Edge Function (new) ─────────────────
+  async function submitToOsbicCRM(formValues: { fullName: string; phone: string; email: string }) {
+    const supabaseUrl = (import.meta as any).env?.PUBLIC_SUPABASE_URL
+      || "https://wyzwpmwspvksgkmesaah.supabase.co/functions/v1/website-lead";
+    const supabaseKey = (import.meta as any).env?.PUBLIC_SUPABASE_ANON_KEY || "";
+
+    const tracking = getTrackingParams();
+
+    await fetch(supabaseUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': supabaseKey,
+        'Authorization': `Bearer ${supabaseKey}`,
+      },
+      body: JSON.stringify({
+        contact_name:    formValues.fullName,
+        contact_phone:   formValues.phone,
+        contact_email:   formValues.email,
+        ...tracking,
+      }),
+    });
+  }
+
   if (form && submitBtn && btnText && btnIcon && btnSpinner && feedback) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (isSubmitting) return;
 
       const fullName = (document.getElementById('fullName') as HTMLInputElement)?.value?.trim();
-      const email = (document.getElementById('email') as HTMLInputElement)?.value?.trim();
+      const email    = (document.getElementById('email') as HTMLInputElement)?.value?.trim();
       const rawPhone = phoneInput?.value?.trim();
       const fullPhone = fullPhoneHidden?.value?.trim();
 
@@ -179,35 +232,23 @@ const { className = "", id = "lead-form" } = Astro.props;
       btnSpinner.classList.remove('hidden');
       feedback.classList.add('hidden');
 
-      const formattedPhoneToSubmit = fullPhone || rawPhone;
+      const formattedPhone = fullPhone || rawPhone;
 
-      const leadPayload = {
+      const sheetPayload = {
         fullName,
         email,
-        phone: formattedPhoneToSubmit,
+        phone: formattedPhone,
         serviceType: '',
         source: 'OSBIC Hero Lead Form',
         timestamp: new Date().toISOString(),
-        referrer: document.referrer || 'Direct'
+        referrer: document.referrer || 'Direct',
       };
 
-      const webhookUrl = import.meta.env.PUBLIC_WEBHOOK_URL || "https://script.google.com/macros/s/AKfycbwIz-3kYA_IC3BPoDzNQsEUUvGtArMxBrPVOMO4CaXGjKlilITjiuQ5I1-5dBcrYXJwiQ/exec";
-
-      try {
-        if (webhookUrl && webhookUrl.startsWith('http')) {
-          fetch(webhookUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-              'Content-Type': 'text/plain;charset=utf-8'
-            },
-            body: JSON.stringify(leadPayload),
-            keepalive: true
-          }).catch((err) => console.warn('Fetch log:', err));
-        }
-      } catch (err) {
-        console.warn('Submission attempt log:', err);
-      }
+      // ─── Fire both in parallel — fail silently on either ─────────────────
+      await Promise.allSettled([
+        submitToGoogleSheet(sheetPayload),
+        submitToOsbicCRM({ fullName, phone: formattedPhone, email }),
+      ]);
 
       // Push event to Google Tag Manager dataLayer
       if (typeof window !== 'undefined' && (window as any).dataLayer) {
@@ -216,8 +257,8 @@ const { className = "", id = "lead-form" } = Astro.props;
           leadData: {
             hasEmail: Boolean(email),
             hasPhone: Boolean(rawPhone),
-            fullPhone: formattedPhoneToSubmit
-          }
+            fullPhone: formattedPhone,
+          },
         });
       }
 
